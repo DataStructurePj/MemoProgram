@@ -1,7 +1,9 @@
 #include "util.h"
 
+
+
 void init() {
-	system("mode con cols=100 lines=80 | title 메 모 장");
+	system("mode con cols=80 lines=40 | title 메 모 장");
 	HANDLE consoleHandle = GetStdHandle(STD_OUTPUT_HANDLE);
 	CONSOLE_CURSOR_INFO ConsoleCursor;
 	ConsoleCursor.bVisible = 0;

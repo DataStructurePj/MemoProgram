@@ -4,10 +4,25 @@ int main() {
 	init();
 	while (1) {
 		int menuCode = menuDraw();
-		//새 파일 생성 메뉴 선택 
+
+		switch (menuCode)
+		{
+			//새 파일 생성 메뉴 선택
+		case 0:
+			break;
+		case 1:
+			break;
+		case 2:
+			break;
+		case 3:
+			break;
+
+
+		default:
+			break;
+		}
+
 		if (menuCode == 0) {
-
-
 			system("cls");
 			printf("1번 선택\n");
 			Sleep(2000);
@@ -24,4 +39,3 @@ int main() {
 	}
 	return 0;
 }
- 

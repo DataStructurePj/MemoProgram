@@ -16,7 +16,6 @@
 #include <stdlib.h>
 #endif // ! __STDLIB_H__
 
-
 #include "key.h"
 #include "util.h"
 

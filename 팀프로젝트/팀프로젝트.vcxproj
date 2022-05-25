@@ -130,6 +130,7 @@
   <ItemGroup>
     <ClInclude Include="main.h" />
     <ClInclude Include="key.h" />
+    <ClInclude Include="record.h" />
     <ClInclude Include="util.h" />
   </ItemGroup>
   <ItemGroup>

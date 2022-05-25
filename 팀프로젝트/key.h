@@ -1,5 +1,6 @@
 #pragma once
 #include "main.h"
+#include <conio.h>
 //키보드 값
 #define UP 0
 #define DOWN 1
