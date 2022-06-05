@@ -1,5 +1,4 @@
 #pragma once
-#include "main.h"
-
+void OnOff(int bool);
 void init();
 void gotoxy(int, int);

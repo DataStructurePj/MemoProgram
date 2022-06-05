@@ -27,6 +27,12 @@
     <ClCompile Include="help.c">
       <Filter>소스 파일</Filter>
     </ClCompile>
+    <ClCompile Include="filemodify.c">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="linkedList.c">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -38,7 +44,10 @@
     <ClInclude Include="util.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="record.h">
+    <ClInclude Include="fileManager.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="list.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
   </ItemGroup>

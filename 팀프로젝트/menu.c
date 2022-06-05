@@ -1,4 +1,4 @@
-#include "key.h"
+#include "main.h"
 #define MENUSIZE 4
 #define STARTX 31
 #define STARTY 25
