@@ -12,10 +12,6 @@ typedef struct LinkedNode {
 	struct LinkedNode* link; //다음 노드를 가리키는 포인터 
 }Node; 
 
-
-//연결리스트의 헤드노드 
-//extern Node *head; 
-
 //노드에서 사용하는 함수 모음 
 
 //연결리스트가 비어있는지 확인하는 함수 

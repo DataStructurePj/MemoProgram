@@ -41,28 +41,22 @@ int returnCode(int code) {
 
 
 //데이터를 저장한다. 
-char *writeData(int i) {
+void writeData(int idx) {
 	char *filename = malloc(sizeof(char)*100); //파일명 
 	char text[MAX_ARRAY_SIZE][MAX_ARRAY_SIZE] = { 0, };
-	writeStc(text); //문장 입력 받음 
-	sprintf(filename, "%sfile %d.txt", DATA_DIR, i);
-	writeFile(text, filename);
-	return filename;
-}
-
-
-
-//문장을 작성하는 함수 
-void writeStc(char Data[][MAX_ARRAY_SIZE]) {
 	int line = 0;
-	printf("메모를 입력해주세요.\n");
 
+	makeMemoDir();
+	printf("메모를 입력해주세요.\n");
 	//이곳에 작성을 마치는 명령어를 제공한다. 
 	while (line < 4) {
-
-		gets(Data[line]);
+		gets(text[line]);
 		line++;
 	}
+	sprintf(filename, "%sfile %d.txt", DATA_DIR, idx);
+	writeFile(text, filename);
+	insert(idx, filename);
+	free(filename);
 }
 
 void writeLinkedList(Node *head) {
@@ -70,8 +64,7 @@ void writeLinkedList(Node *head) {
 	FILE* file;
 	file = fopen(LINKEDLIST_FILE_NAME, "wb");
 	if (file == NULL) {
-		fprintf(stderr, "\n'파일을 열 수 없습니다.'\n");
-		return;
+		exit(1);
 	}
 
 	//모든 노드를 파일에 기록한다. 
@@ -94,7 +87,7 @@ void readLinkedList() {
 	if (file == NULL) {
 		writeLinkedList(getHead());
 		fprintf(stderr, "\n파일을 열 수 없습니다.\n");
-		exit(1);
+		return;
 	}
 
 	//파일에서 연결리스트를 불러온다 
@@ -114,35 +107,28 @@ void makeMemoDir() {
 	mkdir(strFolderPath);
 	free(strFolderPath);
 }
-
-int main()
-{
-	init_list();
-	
-	//데이터를 불러온다
-	readLinkedList();
-
-	//사이즈를 체크하여 해당 사이즈를 int에 넣는다. 
-	int Sz = size();
-
-
-	//새파일 생성 
-	char data[MAX_ARRAY_SIZE][MAX_ARRAY_SIZE]={ 0 };
-	memset(data, 0, sizeof(data));
-	makeMemoDir();
-	char *filePath = writeData(Sz);
-	insert(Sz, filePath);
-
-
-	print_list();
-
-
-
-	
-	//생성을 완료하면 노드에 추가 
-	writeLinkedList(getHead());
-	return 0;
-}
+//
+//int main()
+//{
+//
+//	//데이터를 불러온다
+//	
+//	//사이즈를 체크하여 해당 사이즈를 int에 넣는다. 
+//	int Sz = size();
+//	//새파일 생성 
+//	char data[MAX_ARRAY_SIZE][MAX_ARRAY_SIZE]={ 0 };
+//	memset(data, 0, sizeof(data));
+//	makeMemoDir();
+//	char *filePath = writeData(Sz);
+//	insert(Sz, filePath);
+//
+//
+//	print_list();
+//
+//	//생성을 완료하면 노드에 추가 
+//	writeLinkedList(getHead());
+//	return 0;
+//}
 
 
 
@@ -169,38 +155,3 @@ int main()
 
 
 
-
-
-
-
-//void displayLinkedList(Node *root)
-//{
-//	Node *temp = root;
-//	printf("\nLinkedList \n");
-//	while (temp != NULL)
-//	{
-//		printf("filename:  %s: \n", temp->data.filename);
-//		printf("contents");
-//		for (int i = 0; temp->data.data[i]!=""; i++) {
-//			printf("%s \n", temp->data.data[i]);
-//		}
-//		printf("--------------------------\n");
-//		temp = temp->link;
-//	}
-//	printf("NULL\n\n");
-//}
-//
-//Node *insertAtBegin(Node *head, char data[][MAX_ARRAY_SIZE], char filename[]) {
-//
-//	Node *ptr;
-//	Node *temp = (Node*)malloc(sizeof(Node));
-//	strcpy(temp->data.data, data);
-//	strcpy(temp->data.filename, filename);
-//	temp->link = NULL;
-//	if (head == NULL) head = temp;
-//	else {
-//		temp->link = head;
-//		head = temp;
-//	}
-//	return head;
-//}

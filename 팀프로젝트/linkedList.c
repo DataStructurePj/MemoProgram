@@ -83,7 +83,7 @@ void print_list() {
 	Node *tmp;
 	printf("파일 목록 : \n");
 	for (tmp = head; tmp != NULL; tmp = tmp->link)
-		printf("%s \n ", tmp->data);
+		printf("%s\n", tmp->data);
 	printf("\n");
 }
 void clear_list()
