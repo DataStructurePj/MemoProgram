@@ -2,9 +2,21 @@
 
 int main() {
 	init();
-	while (1) {
-		int menuCode = menuDraw();
+	init_list();
 
+
+
+
+	while (1) {
+		//initialize
+		int menuCode = menuDraw();
+		
+		//data load 
+		head = readLinkedList(); //기존에 저장된 연결리스트를 불러온다. 
+
+
+
+		//main loop
 		switch (menuCode)
 		{
 			//새 파일 생성 메뉴 선택
@@ -25,13 +37,9 @@ int main() {
 			break;
 		case 3:
 			break;
-
-
 		default:
 			break;
 		}
-
-	
 	}
 	return 0;
 }

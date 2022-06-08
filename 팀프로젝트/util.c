@@ -6,6 +6,17 @@ void init() {
 	OnOff(0);
 }
 
+
+int loadFileList() {
+	FILE* fp = fopen("fileList.txt", "rb");
+	if (fp == NULL) {
+		printf("현재 작성된 파일이 없습니다");
+		return NULL;
+	}
+
+
+
+}
 void gotoxy(int x, int y)
 {
 	COORD pos = { x,y };

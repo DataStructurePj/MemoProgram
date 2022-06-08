@@ -27,10 +27,10 @@
     <ClCompile Include="help.c">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="filemodify.c">
+    <ClCompile Include="linkedList.c">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="linkedList.c">
+    <ClCompile Include="fileManage.c">
       <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>

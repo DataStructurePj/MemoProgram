@@ -2,6 +2,8 @@
 
 #define _CRT_SECURE_NO_WARNINGS
 #define MAX_ARRAY_SIZE 100 
+#define LINKEDLIST_FILE_NAME "memolist.txt"
+#define DATA_DIR "file/"
 // 상수 정의 끝 
 
 #ifndef __STDIO_H__
@@ -19,6 +21,9 @@
 #include <stdlib.h>
 #endif // ! __STDLIB_H__
 
+
+//Custom Header File
+
 #ifndef __KEY_H_
 #define __KEY_H_
 #include "key.h"
@@ -29,15 +34,26 @@
 #include "util.h"
 #endif // ! __UTIL_H_
 
-#ifndef __FM_H_
-#define __FM_H_
-#include "fileManager.h"
-#endif // ! __FM_H_     // 헤더파일 정의 끝
-
 #ifndef __LIST_H__
 #define __LIST_H__
 #include "list.h"
 #endif // !__LIST_H__
+
+#ifndef __FM_H_
+#define __FM_H_
+#include "fileManager.h"
+#endif // ! __FM_H_     
+
+//#ifndef __DR_H_
+//#define __DR_H_
+//#include <direct.h>
+//#endif // ! __DR_H_     
+
+#ifndef __ERRNO_H_
+#define __ERRNO_H_
+#include <errno.h>
+#endif // ! __ERRNO_H_     // 헤더파일 정의 끝
+
 
 
 

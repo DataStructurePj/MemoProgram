@@ -1,6 +1,6 @@
 #include "main.h"
 
-
+Node* head = NULL;
 int is_empty() {
 	return head == NULL;
 }
@@ -20,9 +20,19 @@ int size() {
 	for (p = head; p != NULL; p = p->link)count++;
 	return count;
 }
+
+//해당하는 파일 명을 찾는다. 
+int find(char str[]) {
+	Node *tmp = head;
+	for (int i = 0; tmp != NULL; tmp = tmp->link)
+	{
+		if (strcmp(tmp->data, str))  return -1; //만약 같은 파일이 있는 경우, 다른 이름을 설정하도록 함. 
+	}
+	return 0;
+}
 void replace(int pos, Element e) {
 	Node* node = get_entry(pos);
-	if (node != NULL) node->data = e;
+	if (node != NULL) strcpy(node->data, e);
 }
 void insert_next(Node *prev, Node *node) {
 	if (node != NULL) {
@@ -33,7 +43,7 @@ void insert_next(Node *prev, Node *node) {
 void insert(int pos, Element val) {
 	Node *new_node, *prev;
 	new_node = (Node*)malloc(sizeof(Node));
-	new_node->data = val;
+	strcpy(new_node->data,val);
 	new_node->link = NULL; //새로운 노드와 연결할 부분  
 	if (pos == 0) {
 		new_node->link = head;
@@ -65,9 +75,20 @@ void del(int pos) {
 		}
 	}
 }
+
+Node *getHead() {
+	return head;
+}
+void print_list() {
+	Node *tmp;
+	printf("파일 목록 : \n");
+	for (tmp = head; tmp != NULL; tmp = tmp->link)
+		printf("%s \n ", tmp->data);
+	printf("\n");
+}
 void clear_list()
 {
 	while (size()) {
-		delete(size() - 1);
+		del(size() - 1);
 	}
 }
