@@ -16,14 +16,21 @@ typedef struct LinkedNode {
 
 //연결리스트가 비어있는지 확인하는 함수 
 int is_empty();
+//연결리스트를 초기화 하는 함수 
 void init_list();
+//연결리스트의 특정부분의 값을 가져오는 함수 
 Node* get_entry(int pos);
+//연결리스트의 사이즈를 가져오는 함수
 int size();
+//연결리스트의 값을 변경하는 함수 
 void replace(int pos, Element e);
+//연결리스트의 특정노드 다음에 노드를 삽입하는 함수 
 void insert_next(Node *prev, Node *node);
 void insert(int pos, Element val);//노드 삽입 
+//연결리스트의 특정노드 다음에 있는 노드륵
 Node* remove_next(Node *prev);
 void del(int pos);
+int findFileName(char str[]);
 void clear_list();
 Node *getHead();
 

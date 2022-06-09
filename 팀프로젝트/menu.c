@@ -7,12 +7,15 @@
 
 
 char menuList[MENUSIZE][50] = { "1. 새 메 모","2. 메 모 열 기","3. 도 움 말","4. 종 료" };
-
+void clear_stdin() {
+	int ch;
+	while ((ch = getchar()) != EOF && ch != '\n') {};
+}
 
 //방향키 선택 
 int keyControl() {
 	char temp = _getch();
-	if (temp == -32)
+  	if (temp == -32)
 	{
 		temp = _getch();
 		switch (temp) {
@@ -24,7 +27,8 @@ int keyControl() {
 			break;
 		}
 	}
-	else if (temp == ' ') return SUBMIT;
+	else if (temp == '\r') return SUBMIT;
+	return -1;
 }
 //타이틀을 표시하는 부분 
 void titleDraw() {
@@ -62,7 +66,17 @@ int menuDraw() {
 			break;
 
 		case SUBMIT:
+			clear_stdin();
 			return y - STARTY;
 		}
 	}
+}
+
+int showAlert(char msg[]) {
+	int input = 0;
+	printf("\n%s \n", msg);
+	printf("1. 예  / 2. 아니오 :  ");
+	scanf("%d", &input);
+	input = input == 1 ? true : false;
+	return input;
 }

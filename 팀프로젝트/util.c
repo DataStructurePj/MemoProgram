@@ -1,8 +1,16 @@
 #include "main.h"
 
+void setTitle(char *title) {
+	char *str = malloc(sizeof(char) * 100);
+	sprintf(str, "title %s", title);
+	system(str);
+	free(str);
+}
+
 
 void init() {
-	system("mode con cols=80 lines=40 | title 메 모 장");
+	system("mode con cols=80 lines=40");
+	setTitle("메 모 장");
 	OnOff(0);
 }
 
@@ -23,6 +31,7 @@ void gotoxy(int x, int y)
 	SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), pos);
 }
 
+//커서를 나타나게 하거나 끄는 함수 
 void OnOff(int bool) {
 	HANDLE consoleHandle = GetStdHandle(STD_OUTPUT_HANDLE);
 	CONSOLE_CURSOR_INFO ConsoleCursor;

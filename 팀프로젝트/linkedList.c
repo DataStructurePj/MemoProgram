@@ -1,6 +1,8 @@
 #include "main.h"
 
 Node* head = NULL;
+
+
 int is_empty() {
 	return head == NULL;
 }
@@ -22,13 +24,13 @@ int size() {
 }
 
 //해당하는 파일 명을 찾는다. 
-int find(char str[]) {
-	Node *tmp = head;
-	for (int i = 0; tmp != NULL; tmp = tmp->link)
+int findFileName(char str[]) {
+	Node *tmp = NULL;
+	for (tmp = head; tmp != NULL; tmp = tmp->link)
 	{
-		if (strcmp(tmp->data, str))  return -1; //만약 같은 파일이 있는 경우, 다른 이름을 설정하도록 함. 
+		if (strcmp(tmp->data, str)==0)  return true; //만약 같은 파일이 있는 경우, 다른 이름을 설정하도록 함. 
 	}
-	return 0;
+	return false;
 }
 void replace(int pos, Element e) {
 	Node* node = get_entry(pos);
@@ -82,8 +84,12 @@ Node *getHead() {
 void print_list() {
 	Node *tmp;
 	printf("파일 목록 : \n");
+	int idx = 1;
 	for (tmp = head; tmp != NULL; tmp = tmp->link)
-		printf("%s\n", tmp->data);
+	{
+		printf("%d. %s\n", idx, tmp->data);
+		idx++;
+	}
 	printf("\n");
 }
 void clear_list()

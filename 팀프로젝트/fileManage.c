@@ -3,15 +3,20 @@
 //파일을 작성한다. 
 void writeFile(char Data[][MAX_ARRAY_SIZE], char filename[]) {
 	FILE* stream; //파일 포인터를 선언한다.
-	stream = fopen(filename, "w");
+	char *tmp=malloc(sizeof(char)*100);
+	sprintf(tmp, "%s%s.txt", DATA_DIR, filename);
+	stream = fopen(tmp, "w");
 	if (stream == NULL) {
 		fprintf(stderr, "\n'파일을 열 수 없습니다.'\n");
 		exit(1);
 	}
 	for (int i = 0; Data[i][0] != '\0'; i++)
 	{
-		fwrite(Data[i], sizeof(char), MAX_ARRAY_SIZE, stream);
+		int length=strlen(Data[i]);
+		Data[i][length] = '\n';
+		fwrite(Data[i], sizeof(char),length+1, stream);
 	}
+	free(tmp);
 	fclose(stream);
 }
 
@@ -44,6 +49,7 @@ int returnCode(int code) {
 void writeData(int idx) {
 	char *filename = malloc(sizeof(char)*100); //파일명 
 	char text[MAX_ARRAY_SIZE][MAX_ARRAY_SIZE] = { 0, };
+	memset(text, 0, sizeof(text));
 	int line = 0;
 
 	makeMemoDir();
@@ -53,7 +59,28 @@ void writeData(int idx) {
 		gets(text[line]);
 		line++;
 	}
-	sprintf(filename, "%sfile %d.txt", DATA_DIR, idx);
+	//저장할 파일 명을 작성하는 공간 
+	
+	printf("--------------------------------------");
+	while (1) {
+		printf("\n저장할 파일 명을 입력해 주세요: ");
+		scanf("%s", filename);
+		if (!findFileName(filename)) break;
+		else {
+			system("cls");
+			printf("중복되는 파일이 있습니다. 다른 파일명을 입력해주세요. \n\n");
+			printf("------[저장할 내용]-------\n\n");
+			for (int i = 0; i < line; i++) {
+				printf("%s\n", text[i]);
+			}
+			printf("\n--------------------------\n");
+		}
+
+	}
+
+
+
+	//sprintf(filename, "%sfile %d.txt", DATA_DIR, idx);
 	writeFile(text, filename);
 	insert(idx, filename);
 	free(filename);
@@ -73,9 +100,10 @@ void writeLinkedList(Node *head) {
 		temp = temp->link;
 	}
 	if (fwrite)
-		printf("연결리스트가 정상적으로 파일에 저장되었습니다\n");
+		printf("파일이 정상적으로 연결리스트에 저장되었습니다\n");
 	else
 		printf("연결리스트를 파일에 저장하는 중에 에러가 발생하였습니다\n");
+	Sleep(3000);
 	fclose(file);
 }
 
@@ -85,8 +113,8 @@ void readLinkedList() {
 	FILE* file;
 	file = fopen(LINKEDLIST_FILE_NAME, "rb");
 	if (file == NULL) {
+		fprintf(stderr, "\n새 목록을 생성합니다.\n");
 		writeLinkedList(getHead());
-		fprintf(stderr, "\n파일을 열 수 없습니다.\n");
 		return;
 	}
 

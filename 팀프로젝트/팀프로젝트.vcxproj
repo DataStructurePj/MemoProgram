@@ -147,7 +147,7 @@
     <ClInclude Include="fileManager.h" />
     <ClInclude Include="list.h" />
     <ClInclude Include="main.h" />
-    <ClInclude Include="key.h" />
+    <ClInclude Include="menu.h" />
     <ClInclude Include="util.h" />
   </ItemGroup>
   <ItemGroup>
