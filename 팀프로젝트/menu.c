@@ -88,7 +88,7 @@ int menuDraw() {
 
 int showAlert(char msg[]) {
 	int input = 0;
-	printf("\n%s \n", msg);
+	printf("\n %s \n", msg);
 	printf("1. 예  / 2. 아니오 :  ");
 	scanf("%d", &input);
 	input = input == 1 ? true : false;
