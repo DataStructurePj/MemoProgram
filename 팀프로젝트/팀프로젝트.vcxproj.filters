@@ -33,12 +33,6 @@
     <ClCompile Include="fileManage.c">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="size.c">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="color.c">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">

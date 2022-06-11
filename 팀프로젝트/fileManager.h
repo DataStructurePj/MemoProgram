@@ -1,4 +1,8 @@
 //전반적인 파일 생성 및 파일 불러오기등 파일을 관리하는 함수를 선언해둔 헤더파일. 
+#define CURSORX 0
+#define CURSORY 4
+#define ESC 27
+
 
 
 // 현재 저장된 파일의 목록을 보여준다. 
@@ -6,10 +10,10 @@
 int loadFileList();
 
 
-void defineFileName();
+void defineFileName(char *filename, char text[][MAX_ARRAY_SIZE], int line, int idx);
 void writeFile(char Data[][MAX_ARRAY_SIZE], char filename[]);
 void readFile(char filename[], char contents[][MAX_ARRAY_SIZE]);
-
+void removeFile(char filename[], char passwd[]);
 //파일에 작성된 연결리스트를 불러오는 함수 
 void readLinkedList();
 

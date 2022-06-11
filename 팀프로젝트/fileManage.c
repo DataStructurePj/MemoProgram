@@ -1,6 +1,4 @@
 #include "main.h"
-#define CURSORX 0
-#define CURSORY 4
 
 //파일을 작성한다. 
 void writeFile(char Data[][MAX_ARRAY_SIZE], char filename[]) {
@@ -38,31 +36,27 @@ void readFile(char filename[], char contents[][MAX_ARRAY_SIZE]) {
 	fclose(file);
 }
 
-int returnCode(int code) {
-
-
-}
-
-
-
-
+//현재 연결리스트에 저장되어있는 데이터 목록을 출력한다. 
 void printNow(char data[][MAX_ARRAY_SIZE]) {
 	int i = 0;
 	int width = 0;
-	for (i = 0; data[i][0]!='\0'; i++) {
+	for (i = 0; data[i][0]!='\0' ; i++) {
 		gotoxy(CURSORX, CURSORY + i);
 		printf("%s\n", data[i]);
 		width = i>0?strlen(data[i])-1: strlen(data[i]);
 	}
-	gotoxy(CURSORX+width, CURSORY + i-1);
+	gotoxy(CURSORX+width, i>0? CURSORY + i - 1: CURSORY + i);
 }
 
 
 //데이터를 저장한다. 
-void writeData(int idx) {
+void writeData(int idx, char data[][MAX_ARRAY_SIZE]) {
 	char *filename = malloc(sizeof(char) * 100); //파일명 
 	char text[MAX_ARRAY_SIZE][MAX_ARRAY_SIZE];
 	memset(text, '\0', sizeof(text));
+	if (data != NULL) for (int i = 0; data[i][0] != '\0'; i++) {
+		strcpy(text[i], data[i]);
+	}
 	int line = 0;
 	char mode;
 	char cmp; int index = 0;
@@ -71,49 +65,78 @@ void writeData(int idx) {
 	//모드를 변경할 수 있는 부분 
 	while (1) {
 		system("cls");
-		printf("------------------------------------------------------\n");
-		printf("모드를 입력해 주세요 (i:편집 ,p: 종료, r: 새로 만들기)\n");
-		printf("------------------------------------------------------\n\n");
+		OnOff(0);
+		printf("----------------------------------------------------------------\n");
+		printf("모드를 입력해 주세요\n");
+		printf("(i:편집 ,p: 저장, r: 새로 만들기, esc키 : 메인화면 이동)\n");
+		printf("----------------------------------------------------------------\n\n");
 		printNow(text);
 		mode = _getch();
 		system("cls");
-	
+		OnOff(1);
+		int b = 0;
 		switch (mode) {
 		case 'i':
-			
 			while (1) {
 				system("cls");
-				printf("--------------------\n");
+				printf("-----------------------------------\n");
 				printf("메모를 입력해주세요.\n");
-				printf("--------------------\n\n");
+				printf("(ESC를 누르면 모드 선택 화면이동)\n");
+				printf("-----------------------------------\n\n");
 				printNow(text);
 				cmp = _getch();
-				if (cmp == 27) break; //esc감지시 반복문 탈출 
-				if (cmp == '\r' || index == MAX_ARRAY_SIZE-1) {
-					text[line][index] = '\0';
+				
+				//ESC키를 입력받은 경우
+				if (cmp == 27) break; //반복문 탈출 
+
+				//엔터키를 입력받은 경우
+				if (cmp == '\r' || index == MAX_ARRAY_SIZE-1&&b==0) {
+					text[line][index] = '\n';
 					index = 0;
+					b = 0;
 					line++;
 				}
-				if (cmp == '\b'&&index > 0) {
-					text[line][index--] = '\0';
-					
+
+				//BackSpace를 입력받은 경우
+				if (cmp == '\b') {
+					if (index > 0) {
+						index--;
+						text[line][index] = '\0';
+					}
+					else if (index == 0 && line > 0) {
+						text[line][index] = '\0';
+						index = MAX_ARRAY_SIZE - 1;
+						b = 1;
+						line--;
+					}
 				}
-				else {
+				//방향키를 누르지 않도록 방지 
+				else if(cmp!=-32) {
 					text[line][index] = cmp;
 					index++;
 				}
 			}
 			break;
 		case 'p': 
-			gotoxy(CURSORX, CURSORY-2);
-			printf("_______________________저장할 내용_____________________\n");
-			printNow(text);
-			printf("\n_______________________________________________________\n\n");
-			fflush(stdin);
-			if (showAlert("저장하시겠습니까?")) {
-				defineFileName(filename, text, line, idx);
-				return;
+			if (index != 0) {
+				gotoxy(CURSORX, CURSORY - 2);
+				printf("_______________________저장할 내용_____________________\n");
+				printNow(text);
+				printf("\n_______________________________________________________\n\n");
+				int ret = showAlert("저장하시겠습니까?",1);
+
+				if (ret==1) {
+					defineFileName(filename, text, line, idx);
+					writeLinkedList(getHead());
+					return;
+				}
+				else if (ret == 2) return;
 			}
+			else {
+				printf("저장할 데이터가 없습니다.");
+				Sleep(500);
+			}
+			
 			break;
 		case 'r': //새로운 문서로 시작 
 			memset(text, '\0', sizeof(text));
@@ -121,6 +144,8 @@ void writeData(int idx) {
 			mode = 0;
 			cmp = 0; index = 0;
 			break;
+		case ESC:
+			return;
 		}
 	}
 }

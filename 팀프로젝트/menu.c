@@ -7,7 +7,7 @@
 
 
 
-char menuList[MENUSIZE][50] = { "1. 새 메 모","2. 메 모 열 기","3. 도 움 말","4. 옵 션", "5. 종 료" };
+char menuList[MENUSIZE][30] = { "새 메 모","메 모 열 기","도 움 말","옵 션", "종 료" };
 void clear_stdin() {
 	int ch;
 	while ((ch = getchar()) != EOF && ch != '\n') {};
@@ -53,12 +53,16 @@ void titleDraw() {
 int menuDraw() {
 	int x = STARTX;
 	int y = STARTY;
+	char *tmp = malloc(30);
 	gotoxy(x - 2, y);
-	printf("> %s", menuList[0]);
+	sprintf(tmp, "%d. %s", 1, menuList[0]);
+	printf("> %s", tmp);
 	for (int i = 1; i < MENUSIZE; i++) {
 		gotoxy(x, y + i);
-		printf("%s", menuList[i]);
+		sprintf(tmp, "%d. %s", i+1, menuList[i]);
+		printf("%s", tmp);
 	}
+	free(tmp);
 	while (1) {
 		int n = keyControl();
 		switch (n) {
@@ -80,17 +84,16 @@ int menuDraw() {
 			break;
 
 		case SUBMIT:
-			clear_stdin();
 			return y - STARTY;
 		}
 	}
 }
 
-int showAlert(char msg[]) {
-	int input = 0;
+int showAlert(char msg[],int p) {
+	char input = 0;
 	printf("\n %s \n", msg);
-	printf("1. 예  / 2. 아니오 :  ");
-	scanf("%d", &input);
-	input = input == 1 ? true : false;
+	printf("1. 예  / 2. 아니오 %s", p != NULL?"/ ESC: 취소":"");
+	input = _getch();
+	input = input == 27 ? -1 : input - '0';
 	return input;
 }

@@ -57,7 +57,6 @@
 
 void editNewFile(int size);
 void loadFiles(char data[][MAX_ARRAY_SIZE]);
-void showOptionMenu();
 
 void finish();
 

@@ -1,5 +1,6 @@
 #include "main.h"
-#define THIS_PROGRAM_VERSION "1.0"
+
+int COLOR[2] = { 0, };
 
 void setTitle(char *title) {
 	char *str = malloc(sizeof(char) * 100);
@@ -53,8 +54,8 @@ void setPasswd() {
 void setTheme() {
 	FILE* fpo;
 	FILE* fpi;
+	int tmp[2] = { 0, };
 
-	int COLOR[2] = {0,};
 
 	printf("글자 색깔\n"
 		"\t1 = 검정색(Black)                   2 = 하얀색(White)\n"
@@ -65,10 +66,9 @@ void setTheme() {
 	printf("배경 색깔\n"
 		"\t1. 검은색(Black)                    2. 하얀색(White)\n");
 	printf("\n원하시는 색깔 번호를 순서대로 입력해주세요.(글자 번호, 배경 번호): ");
-	scanf("%d %d", &COLOR[0], &COLOR[1]);
+	scanf("%d %d", &tmp[0], &tmp[1]);
 
-	selectTheme(COLOR);
-
+	selectTheme(tmp);
 	fpo = fopen(Background_FILE, "wt");
 	if (fpo == NULL) {
 		fprintf(stderr, "파일 열기 오류\n");
@@ -88,7 +88,6 @@ void setTheme() {
 
 void loadTheme()
 {
-	int COLOR[2] = { 0, };
 
 	FILE* fp = fopen(Background_FILE, "rt");
 	if (fp != NULL)
@@ -109,25 +108,31 @@ void selectTheme(int rgb[]) {
 	int fc = rgb[0];
 	int bc = rgb[1];
 
-	if(fc == bc)
+	if (fc == bc)
 		return;
 	switch (fc) {
 	case 1: // Black!
+		COLOR[0] = fc;
 		attr = 0;
 		break;
 	case 2: // White !
+		COLOR[0] = fc;
 		attr = FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE;
 		break;
 	case 3: // Green ! 
+		COLOR[0] = fc;
 		attr = FOREGROUND_GREEN;
 		break;
 	case 4: // Red ! 
+		COLOR[0] = fc;
 		attr = FOREGROUND_RED;
 		break;
 	case 5: // Yellow ! 
+		COLOR[0] = fc;
 		attr = FOREGROUND_RED | FOREGROUND_GREEN;
 		break;
 	case 6: // Blue (Gray: System Default) ! 
+		COLOR[0] = fc;
 		attr = FOREGROUND_BLUE;
 		break;
 	default:
@@ -143,7 +148,8 @@ void selectTheme(int rgb[]) {
 	case 2: // White
 		attr = attr | BACKGROUND_RED | BACKGROUND_GREEN | BACKGROUND_BLUE | BACKGROUND_INTENSITY;
 	default:
-		printf("잘못된 번호입니다.");
+		attr = (fc == 2 || fc == 3 || fc == 5) ? attr | 0 : attr | BACKGROUND_RED | BACKGROUND_GREEN | BACKGROUND_BLUE | BACKGROUND_INTENSITY;
+		COLOR[1] = (fc == 2 || fc == 3 || fc == 5) ? 1 : 2;
 		break;
 	}
 
