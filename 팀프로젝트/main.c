@@ -1,8 +1,7 @@
 #include "main.h"
 int main() {
 
-	loadTextColor();
-
+	loadTheme();
 	while (1) {
 		initConsole();
 		
@@ -33,7 +32,7 @@ int main() {
 		case 2: //도움말
 			break;
 		case 3: //옵션
-			showOptionMenu();
+			setTheme();
 			break;
 		case 4: //종료 
 			finish();
@@ -75,15 +74,4 @@ void finish() {
 		exit(1);
 	}
 	OnOff(0);
-}
-void showOptionMenu() {
-	int select = 0;
-	printf("1 : 폰트 색상 변경 \n");
-	printf("번호를 선택해주세요.");
-	scanf("%d", &select);
-	switch (select) {
-	case 1: 
-		setTextColor();
-		break;
-	}
 }
