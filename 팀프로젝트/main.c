@@ -1,6 +1,7 @@
 #include "main.h"
 int main() {
 
+	loadTextColor();
 
 	while (1) {
 		initConsole();
@@ -77,16 +78,12 @@ void finish() {
 }
 void showOptionMenu() {
 	int select = 0;
-	printf("1. 해상도 조절 \n2. 폰트 색상 변경 \n");
+	printf("1 : 폰트 색상 변경 \n");
+	printf("번호를 선택해주세요.");
 	scanf("%d", &select);
 	switch (select) {
-	case 1: // 1번을 선택했을 경우
-		//setConsoleSize();
-		break;
-	case 2: //2번을 선택했을 경우 
-		//setTextColor();
+	case 1: 
+		setTextColor();
 		break;
 	}
-
-
 }
