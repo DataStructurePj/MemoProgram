@@ -9,6 +9,7 @@ int main() {
 		//initialize
 
 		system("cls");
+		titleDraw();
 		int menuCode = menuDraw();
 		char data[MAX_ARRAY_SIZE][MAX_ARRAY_SIZE] = { 0 };
 		int Sz = 0;
