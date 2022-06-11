@@ -19,8 +19,6 @@ int main() {
 		system("cls");
 		Sz = size();
 
-
-
 		//main loop
 		switch (menuCode)
 		{
@@ -65,13 +63,6 @@ void loadFiles(char data[][MAX_ARRAY_SIZE]) {
 }
 
 void finish() {
-	OnOff(1);
-	if (showAlert("프로그램을 종료하시겠습니까?")) {
-		system("cls");
-		printf("메모장 프로그램을 종료합니다 \n");
-		exit(1);
-	}
-	OnOff(0);
 	OnOff(1);
 	if (showAlert("프로그램을 종료하시겠습니까?")) {
 		system("cls");

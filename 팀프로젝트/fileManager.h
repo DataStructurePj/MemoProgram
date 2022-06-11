@@ -5,6 +5,8 @@
 // 저장된 파일을 선택하면 해당 파일을 수정하는 화면으로 전환한다.
 int loadFileList();
 
+
+void defineFileName();
 void writeFile(char Data[][MAX_ARRAY_SIZE], char filename[]);
 void readFile(char filename[], char contents[][MAX_ARRAY_SIZE]);
 
