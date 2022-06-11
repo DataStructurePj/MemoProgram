@@ -36,13 +36,13 @@ int keyControl() {
 //타이틀을 표시하는 부분 
 void titleDraw() {
 	gotoxy(TITLEX, TITLEY);
-	printf("  #####  #  #      ######      #####  #\n");
+	printf("         #  #      ######      #####  #\n");
 	gotoxy(TITLEX, TITLEY+1);
-	printf("  #    ###  #      #    #        #    ####\n");
+	printf("   ####  #  #      #    #        #    ####\n");
 	gotoxy(TITLEX, TITLEY+2);
-	printf("  #####  #  #      ######       ###   #\n");
+	printf("   #  # ##  #      ######       # #   #\n");
 	gotoxy(TITLEX, TITLEY+3);
-	printf("         #  #        #             ###\n");
+	printf("   ####  #  #         #            ###\n");
 	gotoxy(TITLEX, TITLEY+4);
 	printf("         #  #      ########       #   #\n");
 	gotoxy(TITLEX, TITLEY+5);
