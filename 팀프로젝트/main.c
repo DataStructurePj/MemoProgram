@@ -4,11 +4,12 @@ int main() {
 
 	while (1) {
 		initConsole();
-		titleDraw();
+		
 		
 		//initialize
 
 		system("cls");
+		titleDraw();
 		int menuCode = menuDraw();
 		char data[MAX_ARRAY_SIZE][MAX_ARRAY_SIZE] = { 0 };
 		int Sz = 0;
