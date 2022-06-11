@@ -23,12 +23,7 @@
 #include <stdlib.h>
 #endif // ! __STDLIB_H__
 
-#ifndef __ERRNO_H_
-#define __ERRNO_H_
-#include <errno.h>
-#endif // ! __ERRNO_H_  
-
-//Custom Header File
+////Custom Header File
 #ifndef __LIST_H__
 #define __LIST_H__
 #include "list.h"
@@ -52,9 +47,9 @@
 
 // 헤더파일 정의 끝
 
-
-
-
+void editNewFile(int size);
+void loadFiles(char data[][MAX_ARRAY_SIZE]);
+void finish();
 
 
 //매 프로그램 로딩시(while문 내), 링크드 리스트를 새로 불러옴으로, 

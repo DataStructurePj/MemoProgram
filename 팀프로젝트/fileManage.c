@@ -135,48 +135,6 @@ void makeMemoDir() {
 	mkdir(strFolderPath);
 	free(strFolderPath);
 }
-//
-//int main()
-//{
-//
-//	//데이터를 불러온다
-//	
-//	//사이즈를 체크하여 해당 사이즈를 int에 넣는다. 
-//	int Sz = size();
-//	//새파일 생성 
-//	char data[MAX_ARRAY_SIZE][MAX_ARRAY_SIZE]={ 0 };
-//	memset(data, 0, sizeof(data));
-//	makeMemoDir();
-//	char *filePath = writeData(Sz);
-//	insert(Sz, filePath);
-//
-//
-//	print_list();
-//
-//	//생성을 완료하면 노드에 추가 
-//	writeLinkedList(getHead());
-//	return 0;
-//}
-
-
-
-//int showMenu(int lineSum, int line, char Data[][MAX_ARRAY_SIZE]) {
-//	//화면 지우기 
-//	system("cls");
-//	int result = 0;
-//	//메뉴 알림 
-//	if (line != lineSum)printf("값이 다릅니다\n");
-//	printf("p를 누르면 작성이 중단 됩니다.\n");
-//	//현재 데이터 출력 
-//	for (int i = 0; i <= line; i++) puts(Data[i]);
-//	//메뉴 입력 
-//	int p = _getch();
-//	if (p == 'p') {
-//		save(line, Data);
-//		result = 200;
-//	}
-//	return result;
-//}
 
 
 

@@ -1,5 +1,5 @@
 #include "main.h"
-
+#include "list.h"
 Node* head = NULL;
 
 

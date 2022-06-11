@@ -1,3 +1,4 @@
+#pragma once
 #include <conio.h>
 //키보드 값
 #define UP 0
@@ -14,3 +15,7 @@ void clear_stdin();
 //사용자에게 경고창을 띄워줌 
 int showAlert(char msg[]);
 
+
+//각 메뉴별 세부 메뉴 
+
+//새 파일에서 사용할 메뉴

@@ -1,4 +1,5 @@
 #pragma once
+#include "main.h"
 typedef struct TEXTFILE {
 	char filename[MAX_ARRAY_SIZE];
 	int passwd;

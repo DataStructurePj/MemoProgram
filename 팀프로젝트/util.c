@@ -1,5 +1,6 @@
 #include "main.h"
 
+
 void setTitle(char *title) {
 	char *str = malloc(sizeof(char) * 100);
 	sprintf(str, "title %s", title);
@@ -8,7 +9,7 @@ void setTitle(char *title) {
 }
 
 
-void init() {
+void initConsole() {
 	system("mode con cols=80 lines=40");
 	setTitle("¸Þ ¸ð Àå");
 	OnOff(0);
