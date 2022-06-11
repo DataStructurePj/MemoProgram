@@ -47,7 +47,6 @@ int returnCode(int code) {
 
 
 void printNow(char data[][MAX_ARRAY_SIZE]) {
-	printf("메모를 입력해주세요.\n");
 	for (int i = 0; data[i][0]!='\0'; i++) {
 		gotoxy(CURSORX + i, CURSORY + i);
 		printf("%s", data[i]);
@@ -68,13 +67,15 @@ void writeData(int idx) {
 	//모드를 변경할 수 있는 부분 
 	while (1) {
 		system("cls");
-		printf("모드를 입력해 주세요 (i:편집모드,p: 명령모드):");
+		printf("모드를 입력해 주세요 (i:편집 ,p: 종료, r: 새로 만들기):");
+		printNow(text);
 		mode = _getch();
 		system("cls");
 		switch (mode) {
 		case 'i':
 			while (1) {
 				system("cls");
+				printf("메모를 입력해주세요.\n");
 				printNow(text);
 				cmp = _getch();
 				if (cmp == 27) break; //esc감지시 반복문 탈출 
@@ -95,8 +96,15 @@ void writeData(int idx) {
 			break;
 		case 'p': 
 			printf("그만 두시겠습니까?");
+
 			defineFileName(filename, text, line,idx);
 			return;
+		case 'r': //새로운 문서로 시작 
+			memset(text, '\0', sizeof(text));
+			int line = 0;
+			int mode = 0; // 0: 명령모드, 1: 편집모드 
+			char cmp = 0; int index = 0;
+			break;
 		}
 	}
 }
