@@ -26,6 +26,7 @@ int loadFileList() {
 
 
 }
+//해당 위치로 커서를 이동한다. 
 void gotoxy(int x, int y)
 {
 	COORD pos = { x,y };

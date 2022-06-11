@@ -2,7 +2,8 @@
 #define MENUSIZE 5
 #define STARTX 31
 #define STARTY 25
-#define TITLEX 
+#define TITLEX 16
+#define TITLEY 10
 
 
 
@@ -30,9 +31,22 @@ int keyControl() {
 	else if (temp == '\r') return SUBMIT;
 	return -1;
 }
+
+
 //타이틀을 표시하는 부분 
 void titleDraw() {
-
+	gotoxy(TITLEX, TITLEY);
+	printf("  #####  #  #      ######      #####  #\n");
+	gotoxy(TITLEX, TITLEY+1);
+	printf("  #    ###  #      #    #        #    ####\n");
+	gotoxy(TITLEX, TITLEY+2);
+	printf("  #####  #  #      ######       ###   #\n");
+	gotoxy(TITLEX, TITLEY+3);
+	printf("         #  #        #             ###\n");
+	gotoxy(TITLEX, TITLEY+4);
+	printf("         #  #      ########       #   #\n");
+	gotoxy(TITLEX, TITLEY+5);
+	printf("                                   ###\n");
 }
 
 
