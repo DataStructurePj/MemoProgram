@@ -8,3 +8,5 @@ void gotoxy(int x, int y);
 void setPasswd();
 void setConsoleSize();
 void setTextColor();
+void setrgb(int color);
+void loadTextColor();
