@@ -1,4 +1,6 @@
 #include "main.h"
+#define CURSORX 0
+#define CURSORY 1
 
 //파일을 작성한다. 
 void writeFile(char Data[][MAX_ARRAY_SIZE], char filename[]) {
@@ -13,7 +15,6 @@ void writeFile(char Data[][MAX_ARRAY_SIZE], char filename[]) {
 	for (int i = 0; Data[i][0] != '\0'; i++)
 	{
 		int length = strlen(Data[i]);
-		Data[i][length] = '\n';
 		fwrite(Data[i], sizeof(char), length + 1, stream);
 	}
 	free(tmp);
@@ -48,6 +49,7 @@ int returnCode(int code) {
 void printNow(char data[][MAX_ARRAY_SIZE]) {
 	printf("메모를 입력해주세요.\n");
 	for (int i = 0; data[i][0]!='\0'; i++) {
+		gotoxy(CURSORX + i, CURSORY + i);
 		printf("%s", data[i]);
 	}
 }
@@ -66,7 +68,7 @@ void writeData(int idx) {
 	//모드를 변경할 수 있는 부분 
 	while (1) {
 		system("cls");
-		printf("모드를 입력해 주세요 (현재 모드: %s)\n", mode == 0 ? "명령모드" : "편집모드");
+		printf("모드를 입력해 주세요 (i:편집모드,p: 명령모드):");
 		mode = _getch();
 		system("cls");
 		switch (mode) {
@@ -75,28 +77,26 @@ void writeData(int idx) {
 				system("cls");
 				printNow(text);
 				cmp = _getch();
-				int tmp = index;
 				if (cmp == 27) break; //esc감지시 반복문 탈출 
-				if (cmp == '\n' || index == MAX_ARRAY_SIZE-1) {
-					text[line][index] = '\n';
+				if (cmp == '\r' || index == MAX_ARRAY_SIZE-1) {
+					text[line][index] = '\0';
 					index = 0;
 					line++;
 				}
 				if (cmp == '\b'&&index > 0) {
-					text[line][index] = '\0';
-					index--;
+					text[line][index--] = '\0';
+					
 				}
 				else {
 					text[line][index] = cmp;
 					index++;
 				}
-				
 			}
 			break;
 		case 'p': 
 			printf("그만 두시겠습니까?");
 			defineFileName(filename, text, line,idx);
-			break;
+			return;
 		}
 	}
 }

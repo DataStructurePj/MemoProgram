@@ -30,6 +30,8 @@ int keyControl() {
 	else if (temp == '\r') return SUBMIT;
 	return -1;
 }
+
+
 //타이틀을 표시하는 부분 
 void titleDraw() {
 

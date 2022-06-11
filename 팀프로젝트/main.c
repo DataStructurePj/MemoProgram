@@ -4,7 +4,7 @@ int main() {
 
 	while (1) {
 		initConsole();
-		titleDraw();
+		
 		
 		//initialize
 
