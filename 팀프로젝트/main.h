@@ -5,6 +5,7 @@
 #define LINKEDLIST_FILE_NAME "memolist.txt"
 #define DATA_DIR "file/"
 #define SETTING_FILE "setting.txt"
+#define Background_FILE "setting1.txt"
 
 #define true 1
 #define false 0
