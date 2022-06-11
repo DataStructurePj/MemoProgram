@@ -1,8 +1,5 @@
-#define _CRT_SECURE_NO_WARNINGS
 #define COMMAND_SIZE 256
-#include <stdio.h>
-#include <stdlib.h>
-#include <Windows.h>
+#include "main.h"
 
 int main(void)
 {
@@ -10,7 +7,7 @@ int main(void)
 	char command[COMMAND_SIZE] = { '\0', };
 	int lines, cols;
 
-	FILE* fp = fopen("text.txt", "rt");
+	FILE* fp = fopen(SETTING_FILE, "rt");
 	if (fp != NULL)
 	{
 		fscanf(fp, "%d %d", &lines, &cols);
@@ -40,38 +37,3 @@ int main(void)
 	return 0;
 }
 
-int Command(int argc, char* argv[], char* env[])
-{
-	FILE* fpo;
-	FILE* fpi;
-
-	char command[COMMAND_SIZE] = { '\0', };
-	int lines, cols;
-
-	printf("세로의 크기를 입력해주세요.: ");
-	scanf("%d", &lines);
-	printf("가로의 크기를 입력해주세요.: ");
-	scanf("%d", &cols);
-
-	sprintf(command, "mode con: lines=%d cols=%d", lines, cols);
-	system(command);
-
-	fpo = fopen("text.txt", "wt");
-	if (fpo == NULL) {
-		fprintf(stderr, "파일 열기 오류\n");
-		exit(1);
-	}
-	fprintf(fpo, "%d %d", lines, cols);
-	fclose(fpo);
-
-	fpi = fopen("text.txt", "rt");
-	if (fpi == NULL) {
-		fprintf(stderr, "파일 열기 오류\n");
-		exit(1);
-	}
-	fscanf(fpi, "%d %d", &lines, &cols);
-	printf("\n세로: %d\n가로: %d\n", lines, cols);
-	fclose(fpi);
-
-	return 0;
-}

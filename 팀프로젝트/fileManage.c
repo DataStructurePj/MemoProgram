@@ -45,29 +45,52 @@ int returnCode(int code) {
 
 
 
+void printNow(char data[][MAX_ARRAY_SIZE]) {
+	printf("메모를 입력해주세요.\n");
+	for (int i = 0; data[i][0]!='\0'; i++) {
+		printf("%s", data[i]);
+	}
+}
+
+
 //데이터를 저장한다. 
 void writeData(int idx) {
 	char *filename = malloc(sizeof(char) * 100); //파일명 
-	char text[MAX_ARRAY_SIZE][MAX_ARRAY_SIZE] = { 0, };
-	memset(text, 0, sizeof(text));
+	char text[MAX_ARRAY_SIZE][MAX_ARRAY_SIZE];
+	memset(text, '\0', sizeof(text));
 	int line = 0;
-	int mode = 0; // 0: 명령모드, 1: 편집모드 
+	int mode=0; // 0: 명령모드, 1: 편집모드 
+	char cmp; int index = 0;
 	makeMemoDir();
 
 	//모드를 변경할 수 있는 부분 
 	while (1) {
+		system("cls");
+		printf("모드를 입력해 주세요 (현재 모드: %s)\n", mode == 0 ? "명령모드" : "편집모드");
 		mode = _getch();
+		system("cls");
 		switch (mode) {
 		case 'i':
-			printf("메모를 입력해주세요.\n");
-			if (strlen(text) != 0) {
-				for (int i = 0; i < strlen(text); i++) {
-					printf("%s\n", text[i]);
+			while (1) {
+				system("cls");
+				printNow(text);
+				cmp = _getch();
+				int tmp = index;
+				if (cmp == 27) break; //esc감지시 반복문 탈출 
+				if (cmp == '\n' || index == MAX_ARRAY_SIZE-1) {
+					text[line][index] = '\n';
+					index = 0;
+					line++;
 				}
-			}
-			while (!(_getch() && _getch() == 27)) {
-				gets(text[line]);
-				line++;
+				if (cmp == '\b'&&index > 0) {
+					text[line][index] = '\0';
+					index--;
+				}
+				else {
+					text[line][index] = cmp;
+					index++;
+				}
+				
 			}
 			break;
 		case 'p': 

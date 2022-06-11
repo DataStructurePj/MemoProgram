@@ -1,12 +1,12 @@
 #include "main.h"
-#define MENUSIZE 4
+#define MENUSIZE 5
 #define STARTX 31
 #define STARTY 25
 #define TITLEX 
 
 
 
-char menuList[MENUSIZE][50] = { "1. 새 메 모","2. 메 모 열 기","3. 도 움 말","4. 종 료" };
+char menuList[MENUSIZE][50] = { "1. 새 메 모","2. 메 모 열 기","3. 도 움 말","4. 옵 션", "5. 종 료" };
 void clear_stdin() {
 	int ch;
 	while ((ch = getchar()) != EOF && ch != '\n') {};
@@ -41,7 +41,7 @@ int menuDraw() {
 	int y = STARTY;
 	gotoxy(x - 2, y);
 	printf("> %s", menuList[0]);
-	for (int i = 1; i < 4; i++) {
+	for (int i = 1; i < MENUSIZE; i++) {
 		gotoxy(x, y + i);
 		printf("%s", menuList[i]);
 	}

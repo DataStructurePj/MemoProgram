@@ -2,7 +2,7 @@
 #include "main.h"
 typedef struct TEXTFILE {
 	char filename[MAX_ARRAY_SIZE];
-	int passwd;
+    char *passwd; //비밀번호  
 }TEXTFILE; //한 파일에 담겨있는 정보
 
 typedef char* Element;

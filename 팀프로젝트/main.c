@@ -22,15 +22,18 @@ int main() {
 		//main loop
 		switch (menuCode)
 		{
-		case 0:
+		case 0: //새 메모 작성
 			editNewFile(Sz);
 			break;
-		case 1:
+		case 1: //메모 불러오기
 			loadFiles(data);
 			break;
-		case 2:
+		case 2: //도움말
 			break;
-		case 3:
+		case 3: //옵션
+			showOptionMenu();
+			break;
+		case 4: //종료 
 			finish();
 		}
 	}
@@ -70,4 +73,19 @@ void finish() {
 		exit(1);
 	}
 	OnOff(0);
+}
+void showOptionMenu() {
+	int select = 0;
+	printf("1. 해상도 조절 \n2. 폰트 색상 변경 \n");
+	scanf("%d", &select);
+	switch (select) {
+	case 1: // 1번을 선택했을 경우
+		//setConsoleSize();
+		break;
+	case 2: //2번을 선택했을 경우 
+		//setTextColor();
+		break;
+	}
+
+
 }

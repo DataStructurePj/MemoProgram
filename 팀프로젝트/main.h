@@ -4,6 +4,8 @@
 #define MAX_ARRAY_SIZE 100
 #define LINKEDLIST_FILE_NAME "memolist.txt"
 #define DATA_DIR "file/"
+#define SETTING_FILE "setting.txt"
+
 #define true 1
 #define false 0
 // 상수 정의 끝 
@@ -22,6 +24,11 @@
 #define __STDLIB_H__
 #include <stdlib.h>
 #endif // ! __STDLIB_H__
+
+#ifndef __STRING_H__
+#define __STRING_H__
+#include <string.h>
+#endif // !__STRING_H__
 
 ////Custom Header File
 #ifndef __LIST_H__
@@ -49,6 +56,8 @@
 
 void editNewFile(int size);
 void loadFiles(char data[][MAX_ARRAY_SIZE]);
+void showOptionMenu();
+
 void finish();
 
 
