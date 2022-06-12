@@ -55,7 +55,7 @@ void setTheme() {
 	FILE* fpo;
 	FILE* fpi;
 	int tmp[2] = { 0, };
-
+	int index = 0;
 
 	printf("글자 색깔\n"
 		"\t1 = 검정색(Black)                   2 = 하얀색(White)\n"
@@ -66,6 +66,8 @@ void setTheme() {
 	printf("배경 색깔\n"
 		"\t1. 검은색(Black)                    2. 하얀색(White)\n");
 	printf("\n원하시는 색깔 번호를 순서대로 입력해주세요.(글자 번호, 배경 번호): ");
+	
+
 	scanf("%d %d", &tmp[0], &tmp[1]);
 
 	selectTheme(tmp);

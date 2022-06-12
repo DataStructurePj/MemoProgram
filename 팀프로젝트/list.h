@@ -9,7 +9,7 @@ typedef char* Element;
 
 //각 파일을 연결한 연결리스트 
 typedef struct LinkedNode {
-	Element data[100]; //메모 파일 
+	Element data[MAX_ARRAY_SIZE]; //메모 파일 
 	struct LinkedNode* link; //다음 노드를 가리키는 포인터 
 }Node; 
 
@@ -28,11 +28,12 @@ void replace(int pos, Element e);
 //연결리스트의 특정노드 다음에 노드를 삽입하는 함수 
 void insert_next(Node *prev, Node *node);
 void insert(int pos, Element val);//노드 삽입 
-//연결리스트의 특정노드 다음에 있는 노드륵
+//연결리스트의 특정노드 다음에 있는 노드를 지우는 함수 
 Node* remove_next(Node *prev);
 void del(int pos);
 int findFileName(char str[]);
 void clear_list();
+//
 Node *getHead();
 
 

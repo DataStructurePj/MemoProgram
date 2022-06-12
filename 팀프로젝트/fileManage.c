@@ -124,14 +124,17 @@ void writeData(int idx, char data[][MAX_ARRAY_SIZE]) {
 				printNow(text);
 				printf("\n_______________________________________________________\n\n");
 				int ret = showAlert("저장하시겠습니까?",1);
-
+				
+				//저장을 원하는 경우 동작
 				if (ret==1) {
 					defineFileName(filename, text, line, idx);
 					writeLinkedList(getHead());
 					return;
 				}
+				//저장을 원하지 않는 경우 
 				else if (ret == 2) return;
 			}
+			//저장할 데이터가 없는 경우 
 			else {
 				printf("저장할 데이터가 없습니다.");
 				Sleep(500);
@@ -144,12 +147,14 @@ void writeData(int idx, char data[][MAX_ARRAY_SIZE]) {
 			mode = 0;
 			cmp = 0; index = 0;
 			break;
-		case ESC:
+		case ESC: //ESC를 누르면 종료 
 			return;
 		}
 	}
 }
 
+
+//파일에 연결리스트를 작성한다. 
 void writeLinkedList(Node *head) {
 	Node* temp = head;
 	FILE* file;
@@ -186,7 +191,7 @@ void readLinkedList() {
 	while (1) {
 		temp = (Node *)malloc(sizeof(Node));
 		resultC = fread(temp, sizeof(Node), 1, file);
-		if (resultC == 0) break;
+		if (resultC == 0) break; //더이상 불러올 데이터가 없는 경우 루프를 종료 
 		insert(idx, temp->data);
 		free(temp);
 		idx++;

@@ -26,7 +26,6 @@ int main() {
 		{
 		
 		case 0: //새 메모 작성
-		
 			editNewFile(Sz);
 			break;
 		case 1: //메모 불러오기
