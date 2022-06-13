@@ -26,9 +26,24 @@ int size() {
 //해당하는 파일 명을 찾는다. 
 int findFileName(char str[]) {
 	Node *tmp = NULL;
+	int idx = 0;
 	for (tmp = head; tmp != NULL; tmp = tmp->link)
 	{
-		if (strcmp(tmp->data, str)==0)  return true; //만약 같은 파일이 있는 경우, 다른 이름을 설정하도록 함. 
+		if (strcmp(tmp->data, str)==0)  return idx; //만약 같은 파일이 있는 경우, 다른 이름을 설정하도록 함. 
+		idx++;
+	}
+	return -1;
+}
+
+//
+
+int getIndex(Element ch) {
+	Node *tmp = NULL;
+	int idx = 0;
+	for (tmp = head; tmp != NULL; tmp = tmp->link)
+	{
+		if (strcmp(tmp->data, ch) == 0)  return idx; //만약 같은 파일이 있는 경우, 다른 이름을 설정하도록 함. 
+		idx++;
 	}
 	return false;
 }
@@ -45,6 +60,7 @@ void insert_next(Node *prev, Node *node) {
 void insert(int pos, Element val) {
 	Node *new_node, *prev;
 	new_node = (Node*)malloc(sizeof(Node));
+	memset(new_node->data, 0, sizeof(new_node->data));
 	strcpy(new_node->data,val);
 	new_node->link = NULL; //새로운 노드와 연결할 부분  
 	if (pos == 0) {

@@ -23,7 +23,9 @@ void writeFile(char Data[][MAX_ARRAY_SIZE], char filename[]) {
 void readFile(char filename[], char contents[][MAX_ARRAY_SIZE]) {
 	int size = 0;
 	FILE* file; //파일 포인터를 선언한다.
-	file = fopen(filename, "r");
+	char *tmp = malloc(sizeof(char) * 100);
+	sprintf(tmp, "%s%s.txt", DATA_DIR, filename);
+	file = fopen(tmp, "r");
 	int idx = 0;
 	if (file == NULL) {
 		fprintf(stderr, "\n파일을 열 수 없습니다.\n");
@@ -33,33 +35,43 @@ void readFile(char filename[], char contents[][MAX_ARRAY_SIZE]) {
 	size = ftell(file);
 	rewind(file);
 	fread(contents, sizeof(char), size, file);
+	free(tmp);
 	fclose(file);
 }
 
 //현재 연결리스트에 저장되어있는 데이터 목록을 출력한다. 
 void printNow(char data[][MAX_ARRAY_SIZE]) {
+	int CURSORX = 0;
+	int CURSORY = 4;
 	int i = 0;
-	int width = 0;
-	for (i = 0; data[i][0]!='\0' ; i++) {
-		gotoxy(CURSORX, CURSORY + i);
+	int len = 0;
+	for (i = 0; data[i][0] != '\0'; i++) {
+		gotoxy(CURSORX, CURSORY++);
 		printf("%s\n", data[i]);
-		width = i>0?strlen(data[i])-1: strlen(data[i]);
+		len = i > 0 ? strlen(data[i]) - 1 : strlen(data[i]);
 	}
-	gotoxy(CURSORX+width, i>0? CURSORY + i - 1: CURSORY + i);
+	gotoxy(CURSORX + len, i > 0 ? CURSORY - 1 : CURSORY);
 }
 
 
 //데이터를 저장한다. 
-void writeData(int idx, char data[][MAX_ARRAY_SIZE]) {
-	char *filename = malloc(sizeof(char) * 100); //파일명 
+void writeData(int idx, char data[][MAX_ARRAY_SIZE], char *fn) {
 	char text[MAX_ARRAY_SIZE][MAX_ARRAY_SIZE];
-	memset(text, '\0', sizeof(text));
-	if (data != NULL) for (int i = 0; data[i][0] != '\0'; i++) {
-		strcpy(text[i], data[i]);
-	}
 	int line = 0;
 	char mode;
 	char cmp; int index = 0;
+	memset(text, '\0', sizeof(text));
+
+	//만약 파일 불러오기 이후, 해당 파일을 수정하려는 경우,
+	if (data != NULL) {
+		for (int i = 0; data[i][0] != '\0'; i++) {
+			strcpy(text[i], data[i]);
+			index = strlen(data[i]);
+			line++;
+		}
+		line-=1; //마지막에 line이 1 증가한 상태로 for문이 종료되므로 ,-1해줌. 
+	}
+
 	makeMemoDir();
 
 	//모드를 변경할 수 있는 부분 
@@ -85,12 +97,12 @@ void writeData(int idx, char data[][MAX_ARRAY_SIZE]) {
 				printf("-----------------------------------\n\n");
 				printNow(text);
 				cmp = _getch();
-				
+
 				//ESC키를 입력받은 경우
 				if (cmp == 27) break; //반복문 탈출 
 
 				//엔터키를 입력받은 경우
-				if (cmp == '\r' || index == MAX_ARRAY_SIZE-1&&b==0) {
+				if (cmp == '\r' || index == MAX_ARRAY_SIZE - 1 && b == 0) {
 					text[line][index] = '\n';
 					index = 0;
 					b = 0;
@@ -111,23 +123,23 @@ void writeData(int idx, char data[][MAX_ARRAY_SIZE]) {
 					}
 				}
 				//방향키를 누르지 않도록 방지 
-				else if(cmp!=-32) {
+				else if (cmp != -32) {
 					text[line][index] = cmp;
 					index++;
 				}
 			}
 			break;
-		case 'p': 
+		case 'p':
 			if (index != 0) {
-				gotoxy(CURSORX, CURSORY - 2);
+				gotoxy(0, 2);
 				printf("_______________________저장할 내용_____________________\n");
 				printNow(text);
 				printf("\n_______________________________________________________\n\n");
-				int ret = showAlert("저장하시겠습니까?",1);
-				
+				int ret = showAlert("저장하시겠습니까?", 1);
+
 				//저장을 원하는 경우 동작
-				if (ret==1) {
-					defineFileName(filename, text, line, idx);
+				if (ret == 1) {
+					defineFileName(fn, text, line, idx);
 					writeLinkedList(getHead());
 					return;
 				}
@@ -139,7 +151,7 @@ void writeData(int idx, char data[][MAX_ARRAY_SIZE]) {
 				printf("저장할 데이터가 없습니다.");
 				Sleep(500);
 			}
-			
+
 			break;
 		case 'r': //새로운 문서로 시작 
 			memset(text, '\0', sizeof(text));
@@ -206,26 +218,40 @@ void makeMemoDir() {
 }
 
 
-
-void defineFileName(char *filename, char text[][MAX_ARRAY_SIZE], int line,int idx) {
+void defineFileName(char *filename, char text[][MAX_ARRAY_SIZE], int line, int idx) {
+	char *fn = malloc(sizeof(char) * 100); //파일명 
+	memset(fn, 0, sizeof(char) * 100);
+	if (filename != NULL)strcpy(fn, filename);
 	printf("\n--------------------------------------");
 	while (1) {
-		printf("\n저장할 파일 명을 입력해 주세요: ");
-		scanf("%s", filename);
-		if (!findFileName(filename)) break;
+		printf("\n저장할 파일 명을 입력해 주세요: \n");
+		if (filename != NULL)printf("(이전 파일명: %s) ", fn);
+		scanf("%s", fn);
+		int retFInd = findFileName(fn);
+		if (retFInd == -1) {
+			writeFile(text, fn);
+			if (filename != NULL) 
+				replace(idx, fn);
+			else 
+				insert(idx, fn);
+			free(fn);
+			return;
+		}
 		else {
-			system("cls");
-			printf("중복되는 파일이 있습니다. 다른 파일명을 입력해주세요. \n\n");
-			printf("------[저장할 내용]-------\n\n");
-			for (int i = 0; i < line; i++) {
-				printf("%s\n", text[i]);
+			if (filename != NULL) {
+				writeFile(text, fn);
+				replace(retFInd, fn);
+				return;
 			}
-			printf("\n--------------------------\n");
+			else {
+				system("cls");
+				printf("중복되는 파일이 있습니다. 다른 파일명을 입력해주세요. \n\n");
+				printf("---------------------------------[저장할 내용]------------------------------\n\n");
+				printNow(text);
+				printf("\n----------------------------------------------------------------------------\n");
+			}
 		}
 	}
-	writeFile(text, filename);
-	insert(idx, filename);
-	free(filename);
 }
 
 

@@ -56,8 +56,8 @@
 // 헤더파일 정의 끝
 
 void editNewFile(int size);
-void loadFiles(char data[][MAX_ARRAY_SIZE]);
-
+void loadFiles(int sz);
+void showHelp();
 void finish();
 
 

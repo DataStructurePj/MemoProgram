@@ -11,7 +11,6 @@ int main() {
 		system("cls");
 		titleDraw();
 		int menuCode = menuDraw();
-		char data[MAX_ARRAY_SIZE][MAX_ARRAY_SIZE] = { 0 };
 		int Sz = 0;
 		//data load 
 		init_list();
@@ -29,9 +28,13 @@ int main() {
 			editNewFile(Sz);
 			break;
 		case 1: //메모 불러오기
-			loadFiles(data);
+			loadFiles(Sz);
 			break;
 		case 2: //도움말
+			system("cls");
+			showHelp();
+			while (_getch() != 27) {
+			}
 			break;
 		case 3: //옵션
 			OnOff(1);
@@ -50,14 +53,16 @@ int main() {
 void editNewFile(int size) {
 	system("mode con cols=100 lines=40");
 	OnOff(1);
-	writeData(size,NULL);
+	writeData(size,NULL,NULL);
 	
 	system("cls");
 	OnOff(0);
 }
 
-void loadFiles(char data[][MAX_ARRAY_SIZE]) {
+void loadFiles(int sz) {
 	char select = 0;
+	char data[MAX_ARRAY_SIZE][MAX_ARRAY_SIZE] = { 0 };
+	char *filename = malloc(100);
 	memset(data, 0, sizeof(data));
 	OnOff(1);
 	//파일목록 제공 
@@ -65,7 +70,7 @@ void loadFiles(char data[][MAX_ARRAY_SIZE]) {
 	printf("\n열 파일을 선택해 주세요(메인메뉴이동 : ESC) :  ");
 	select = _getch();
 	//범위 초과 혹은 메인 메뉴 이동 
-	if (select == 27 || (select > size()+'1' || select <'1')) {
+	if (select == 27 || (select > size()+'0' || select <'1')) {
 		char str[2][100] = { 0, };
 		strcpy(str[0], "메인메뉴로 돌아갑니다.");
 		strcpy(str[1], "허용되지 않는 범위 입니다. 메인메뉴로 돌아갑니다.");
@@ -78,14 +83,15 @@ void loadFiles(char data[][MAX_ARRAY_SIZE]) {
 	//select변수 갱신
 	select = select - '0' ;
 	printf("%d", select);
+	
+	strcpy(filename, get_entry(select - 1)->data);
 
-
-	printf("출력: %s\n", get_entry(select-1)->data);
-	//제공한 파일 편집하는 함수 
-	/*writeStc(); */
+	printf("출력: %s\n", filename);
+	setTitle(filename);
+	readFile(filename, data);
+	writeData(sz, data, filename);
 	OnOff(0);
-	Sleep(3000);
-	system("cls");
+	free(filename);
 }
 
 void finish() {

@@ -1,6 +1,5 @@
 //전반적인 파일 생성 및 파일 불러오기등 파일을 관리하는 함수를 선언해둔 헤더파일. 
-#define CURSORX 0
-#define CURSORY 4
+
 #define ESC 27
 
 
@@ -9,7 +8,7 @@
 // 저장된 파일을 선택하면 해당 파일을 수정하는 화면으로 전환한다.
 int loadFileList();
 
-
+void writeData(int idx, char data[][MAX_ARRAY_SIZE], char *fn);
 void defineFileName(char *filename, char text[][MAX_ARRAY_SIZE], int line, int idx);
 void writeFile(char Data[][MAX_ARRAY_SIZE], char filename[]);
 void readFile(char filename[], char contents[][MAX_ARRAY_SIZE]);
